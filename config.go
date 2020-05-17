@@ -12,6 +12,13 @@ type Fetcher interface {
 	Fetch(ctx context.Context) (interface{}, error)
 }
 
+// a simple fetcher that calls a func
+type FetcherFunc func(ctx context.Context) (interface{}, error)
+
+func (f FetcherFunc) Fetch(ctx context.Context) (interface{}, error) {
+	return f(ctx)
+}
+
 // a hot-updatable config struct
 type Config struct {
 	lock          *sync.RWMutex
