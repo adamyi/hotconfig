@@ -39,6 +39,15 @@ func (c *Config) Config() (interface{}, error) {
 	return c.config, nil
 }
 
+// Get the config, or return nil if not properly initialized
+func (c *Config) ConfigOrNil() interface{} {
+	ret, err := c.Config()
+	if err != nil {
+		return nil
+	}
+	return ret
+}
+
 // Update config to given value
 func (c *Config) update(config interface{}) {
 	c.lock.Lock()
